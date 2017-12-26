@@ -1,31 +1,17 @@
-var express = require('express');
+import express from 'express';
+import * as Station from '../models/station'
+
 var router = express.Router();
 
 router.get('/', (req, res, next) => {
-  res.send(stations());
+  res.send(Station.all());
 });
 
 router.get('/:stationId/', (req, res, next) => {
-  const station = stations().find(station => station.id === req.params.stationId);
-
-  debugger;
+  const stationId = parseInt(req.params.stationId)
+  const station = Station.find(stationId);
 
   res.send(station);
 });
 
-const stations = () => [
-  { id: 1, name: 'station foo', location: 'location' },
-  { id: 2, name: 'station bar', location: 'location' }
-];
-
-// class Stations {
-//   const find = (id) => {
-//     all
-//   }
-
-//   const all = () => {
-
-//   }
-// }
-
-module.exports = router;
+export default router;
